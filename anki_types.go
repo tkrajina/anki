@@ -340,6 +340,8 @@ func (t *Tags) Scan(src interface{}) error {
 	return nil
 }
 
+const FieldValuesDelimiter = "\x1f"
+
 type FieldValues []string
 
 // Scan implements the sql.Scanner interface for the FieldValues type.
@@ -353,7 +355,7 @@ func (fv *FieldValues) Scan(src interface{}) error {
 	default:
 		return errors.New("Incompatible type for FieldValues")
 	}
-	*fv = FieldValues(strings.Split(tmp, "\x1f"))
+	*fv = FieldValues(strings.Split(tmp, FieldValuesDelimiter))
 	return nil
 }
 
